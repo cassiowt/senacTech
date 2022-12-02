@@ -31,7 +31,7 @@ public class ExerciciosArrays {
         //exercicioNove(arrayNumerosPositivos);
         //exercicioDezA(arrayNumeros);
         //exercicioDezB(arrayNumeros, arrayNumerosPositivos);
-        //exercicioOnze();
+        exercicioOnze();
         
     }
 
