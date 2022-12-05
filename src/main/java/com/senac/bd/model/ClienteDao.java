@@ -1,4 +1,4 @@
-package com.senac.javacombancodados.model;
+package com.senac.bd.model;
 
 import java.util.List;
 

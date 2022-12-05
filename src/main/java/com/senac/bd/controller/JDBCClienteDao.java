@@ -1,21 +1,22 @@
-package com.senac.javacombancodados.controller;
+package com.senac.bd.controller;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import banco.PostgreSql;
-import com.senac.javacombancodados.model.Cliente;
-import com.senac.javacombancodados.model.ClienteDao;
+import com.senac.banco.ConexaoMySQL;
+import com.senac.bd.model.Cliente;
+import com.senac.bd.model.ClienteDao;
 
 public class JDBCClienteDao implements ClienteDao {
-	private final String tabela = "cliente";
+	private final String tabela = "Cliente";
 
+        @Override
 	public void excluir(Cliente cli) {
 		if (cli != null) {
 			try {
 				// criação da instrução SQL
-				PreparedStatement stmt = PostgreSql.getConnection()
+				PreparedStatement stmt = ConexaoMySQL.getConnection()
 						.prepareStatement(
 								"DELETE FROM " + tabela + " WHERE id= ?");
 				// informando o valor do parâmetro id
@@ -28,6 +29,7 @@ public class JDBCClienteDao implements ClienteDao {
 		}
 	}
 
+        @Override
 	public void gravar(Cliente cli) {
 		if (cli != null) {
 			try {
@@ -38,7 +40,7 @@ public class JDBCClienteDao implements ClienteDao {
 					 */
 					cli.setId(getNovoId());
 					// criação da instrução SQL
-					PreparedStatement stmt = PostgreSql
+					PreparedStatement stmt = ConexaoMySQL
 							.getConnection()
 							.prepareStatement(
 									"INSERT INTO "
@@ -50,7 +52,7 @@ public class JDBCClienteDao implements ClienteDao {
 					stmt.setString(3, cli.getCpf());
 					stmt.executeUpdate();
 				} else { // se cliente já foi cadastrado.
-					PreparedStatement stmt = PostgreSql
+					PreparedStatement stmt = ConexaoMySQL
 							.getConnection()
 							.prepareStatement(
 									"UPDATE "
@@ -72,7 +74,7 @@ public class JDBCClienteDao implements ClienteDao {
 	 * este id incrementado em 1.
 	 */
 	private Long getNovoId() throws SQLException {
-		java.sql.Statement stmt = PostgreSql.getConnection().createStatement();
+		java.sql.Statement stmt = ConexaoMySQL.getConnection().createStatement();
 		ResultSet rs = ((java.sql.Statement) stmt)
 				.executeQuery("SELECT MAX(id) FROM " + tabela);
 		if (rs.next())
@@ -80,11 +82,12 @@ public class JDBCClienteDao implements ClienteDao {
 		return new Long(1);
 	}
 
+        @Override
 	public Cliente consultar(Long id) {
 		if (id == null || id == 0)
 			return null;
 		try {
-			PreparedStatement stmt = PostgreSql.getConnection()
+			PreparedStatement stmt = ConexaoMySQL.getConnection()
 					.prepareStatement(
 							"SELECT * FROM " + tabela + " WHERE id = ?");
 			stmt.setLong(1, id);
@@ -98,12 +101,12 @@ public class JDBCClienteDao implements ClienteDao {
 		return null;
 	}
 
+        @Override
 	public List<Cliente> listar() {
 		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
-			PreparedStatement stmt = PostgreSql.getConnection()
-					.prepareStatement(
-							"SELECT * FROM " + tabela + " ORDER	BY nome");
+			PreparedStatement stmt = ConexaoMySQL.getConnection()
+					.prepareStatement("SELECT * FROM " + tabela + " ORDER	BY id");
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				lista.add(new Cliente(rs.getLong("id"), rs.getString("nome"),

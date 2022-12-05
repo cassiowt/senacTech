@@ -1,10 +1,10 @@
-package banco;
+package com.senac.banco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class PostgreSql {
+public class ConexaoMySQL {
 	private static Connection conexao;
 
 	public static Connection getConnection() {
@@ -16,8 +16,8 @@ public class PostgreSql {
 			 * se a conexao nao foi criada, configurar driver, usuario e senha
 			 * do banco e entao retornar a conexao.
 			 */
-			Class.forName("org.postgresql.Driver");
-			conexao = DriverManager.getConnection("jdbc:postgresql://localhost/postgres", "postgres","postgres");
+			Class.forName("com.mysql.jdbc.Driver");
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/senac", "root", "senha");
 			return conexao;
 		} catch (SQLException e) {
 			System.err.println("Erro ao conectar: " + e.getMessage());
@@ -29,7 +29,7 @@ public class PostgreSql {
 
 	public static void main(String[] args) {
 		System.out.print("Abrindo conexão com DB...");
-		Connection c = PostgreSql.getConnection();
+		Connection c = ConexaoMySQL.getConnection();
 		System.out.println("OK");
 	}
 }
