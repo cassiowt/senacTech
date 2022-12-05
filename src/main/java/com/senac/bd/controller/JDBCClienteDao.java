@@ -8,6 +8,18 @@ import com.senac.banco.ConexaoMySQL;
 import com.senac.bd.model.Cliente;
 import com.senac.bd.model.ClienteDao;
 
+/*
+
+CREATE SCHEMA "senac";
+
+CREATE TABLE `senac`.`Cliente` (
+  `id` INT NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `cpf` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+*/
+
 public class JDBCClienteDao implements ClienteDao {
 	private final String tabela = "Cliente";
 

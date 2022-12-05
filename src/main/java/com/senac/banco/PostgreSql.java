@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class PostgreSql1 {
+public class PostgreSql {
 	private static Connection conexao;
 
 	public static Connection getConnection() {
@@ -29,7 +29,7 @@ public class PostgreSql1 {
 
 	public static void main(String[] args) throws SQLException {
 		System.out.print("Abrindo conexão com DB...");
-		Connection c = PostgreSql1.getConnection();
+		Connection c = PostgreSql.getConnection();
 		System.out.println("OK");
 		
 		;
